@@ -1,5 +1,8 @@
 package com.example.demo.response;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -11,7 +14,7 @@ public class DepartmentResponse {
 	private Long id;
 	
 	private String name;
-
+	
 	public String getName() {
 		return name;
 	}

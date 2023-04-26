@@ -70,15 +70,10 @@ public class DepartmentController {
         return new ResponseEntity<Page<Department>>(list, new HttpHeaders(), HttpStatus.OK); 
     }
     
+	@GetMapping("/{name}")
+	private DepartmentResponse findAllDepartmentNames(@PathVariable String name) {
+		return iDepartmentService.findByNames(name);
+	}
     
-//    @GetMapping("/department")
-//    public ResponseEntity<Page<Department>> getAllDepartmentResponses(
-//                        @RequestParam(defaultValue = "0") Integer pageNo, 
-//                        @RequestParam(defaultValue = "10") Integer pageSize,
-//                        @RequestParam(defaultValue = "id") String sortBy) 
-//    {
-//        Page<Department> list = departmentServiceImpl.getAllDepartment(pageNo, pageSize, sortBy);
-//
-//        return new ResponseEntity<Page<Department>>(list, new HttpHeaders(), HttpStatus.OK); 
-//    }
+    
 }

@@ -9,16 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Entity
 @Table
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class Department {
 	
 	@Id
@@ -30,7 +23,6 @@ public class Department {
 	private String name;
 	
 	@Column
-	
 	private LocalDate createAt;
 	
 	@Column

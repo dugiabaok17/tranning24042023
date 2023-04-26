@@ -24,4 +24,6 @@ public interface IDepartmentService {
 	ResponseEntity<ResponseObject> delete(Long id);
 	
 	Page<Department> getAllDepartments(Integer pageNo, Integer pageSize, String sortBy);
+	
+	DepartmentResponse findByNames(String name);
 }

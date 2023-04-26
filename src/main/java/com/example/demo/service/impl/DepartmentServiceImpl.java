@@ -3,7 +3,9 @@ package com.example.demo.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,10 +32,16 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	@Autowired
 	private DepartmentResponseRepository departmentResponseRepository;
 
+	@Autowired
+	private ModelMapper mapper;
+
 	@Override
 	public List<DepartmentResponse> findAll() {
 
-		return departmentResponseRepository.findAllDepartmentResponse();
+		List<Department> users = departmentRepository.findAll();
+		List<DepartmentResponse> userDtos = users.stream().map(user -> mapper.map(user, DepartmentResponse.class))
+				.collect(Collectors.toList());
+		return userDtos;
 	}
 
 	@Override
@@ -93,13 +101,23 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	}
 
 	public Page<Department> getAllDepartments(Integer pageNo, Integer pageSize, String sortBy) {
-		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+
+		Pageable paging = PageRequest.of(pageNo - 1, pageSize, Sort.by(sortBy));
 
 		Page<Department> pagedResult = departmentRepository.findAll(paging);
 
 		return pagedResult;
 	}
 
+	@Override
+	public DepartmentResponse findByNames(String name) {
+		// Lấy User entity ra từ DB
+		Department user = departmentRepository.findByName(name);
 
+		// Map thành DTO
+		DepartmentResponse userDto = mapper.map(user, DepartmentResponse.class);
+
+		return userDto;
+	}
 
 }
